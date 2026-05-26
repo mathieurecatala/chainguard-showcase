@@ -107,5 +107,5 @@ ChainGuard is a commercial product. The source code is private. This repository 
 
 - Email: mathieu.recatala@gmail.com
 - GitHub: [github.com/mathieurecatala](https://github.com/mathieurecatala)
-- LinkedIn: _(coming soon)_
+- LinkedIn: [linkedin.com/in/mathieu-recatala-0360b5222/](https://www.linkedin.com/in/mathieu-recatala-0360b5222/)
 - Demo: [chainguard-theta.vercel.app](https://chainguard-theta.vercel.app)
