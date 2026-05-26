@@ -80,13 +80,18 @@ No lock-in: pay-per-use never expires into a subscription you didn't choose.
 
 ## Roadmap
 
+**Shipped**
 - [x] MVP live
-- [x] Multi-agent analysis pipeline
-- [x] On-chain report hashing
-- [ ] Eval suite against known-vulnerable contracts (Damn Vulnerable DeFi, SWC registry)
-- [ ] Pre-audit mode: lightweight scan to surface medium/low findings before engaging a top-tier auditor
-- [ ] Custom severity profiles per protocol type (DeFi, NFT, governance…)
-- [ ] Public benchmarks vs. existing static analyzers
+- [x] Seven-agent analysis pipeline with adversarial critic
+- [x] Per-protocol specialization — six domain agents (DeFi, NFT, Gaming, RWA, DAO, Generic)
+- [x] RAG over a curated database of documented real-world DeFi exploits
+- [x] On-chain report hashing on Base
+- [x] Verifiable PDF reports with on-chain QR proof
+
+**Next**
+- [ ] Pre-audit mode — lightweight scan tuned for surfacing medium/low findings before engaging a top-tier auditor
+- [ ] Eval suite against known-vulnerable benchmarks (Damn Vulnerable DeFi, SWC registry) with published detection-rate metrics
+- [ ] Public benchmarks vs. existing static analyzers (Slither, Mythril)
 
 ## Why I built it
 
