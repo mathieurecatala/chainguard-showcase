@@ -91,5 +91,5 @@ The source code is private. This repository exists as a public showcase of the p
 ## Contact
 
 - GitHub: [github.com/mathieurecatala](https://github.com/mathieurecatala)
-- LinkedIn: _(coming soon)_
+- LinkedIn: [linkedin.com/in/mathieu-recatala-0360b5222/](https://www.linkedin.com/in/mathieu-recatala-0360b5222/)
 - Demo: [chainguard-theta.vercel.app](https://chainguard-theta.vercel.app)
