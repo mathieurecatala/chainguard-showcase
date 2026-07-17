@@ -1,6 +1,6 @@
 # ChainGuard
 
-> AI-powered Solidity smart contract security auditor — multi-agent analysis with on-chain proof of review.
+> AI-powered security scanner for Solidity smart contracts — multi-agent vulnerability analysis with on-chain proof of review.
 
 **Live demo:** [chainguard-theta.vercel.app](https://chainguard-theta.vercel.app)
 
@@ -57,7 +57,7 @@ Full breakdown of the agents, design decisions, and the on-chain proof mechanism
 **Blockchain**
 - Solidity 0.8.20 contracts (OpenZeppelin), deployed on **Base mainnet**
 - `ethers` v6 for on-chain reads/writes and wallet interaction
-- On-chain audit registry storing report hashes, scores, and timestamps
+- On-chain analysis registry storing report hashes, scores, and timestamps
 
 **Auth**
 - GitHub OAuth sign-in (NextAuth) for identity and usage tracking

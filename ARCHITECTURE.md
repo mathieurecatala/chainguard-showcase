@@ -4,13 +4,13 @@ This document explains how ChainGuard is designed: how a raw Solidity file becom
 
 ## Overview
 
-ChainGuard treats a smart contract audit as a pipeline problem, not a single prompt. A naive "send the code to an LLM and ask for bugs" approach has two failure modes that matter in security work: it hallucinates vulnerabilities that don't exist (false positives erode trust), and it silently skips functions or vulnerability classes it wasn't nudged toward (false negatives are dangerous). The architecture is built specifically to attack both.
+ChainGuard treats smart contract security analysis as a pipeline problem, not a single prompt. A naive "send the code to an LLM and ask for bugs" approach has two failure modes that matter in security work: it hallucinates vulnerabilities that don't exist (false positives erode trust), and it silently skips functions or vulnerability classes it wasn't nudged toward (false negatives are dangerous). The architecture is built specifically to attack both.
 
 Before any model sees the contract, ChainGuard runs a **deterministic pre-analysis stage**. A structural parser extracts the contract's real shape — its functions and their visibility, modifiers, state variables, inheritance chain, imported dependencies, and a set of "dangerous pattern" flags (`delegatecall`, `selfdestruct`, `tx.origin`, assembly blocks, timestamp usage, and so on). In parallel, the contract is compiled with `solc` and its bytecode is inspected at the opcode level. This produces ground-truth facts — *this contract genuinely contains a `DELEGATECALL` opcode* — that the language model cannot argue with later.
 
 The analysis itself is performed by a **pipeline of specialized agents** rather than one generalist. An orchestrator first classifies the contract (DeFi, NFT, Gaming, RWA, DAO, or Generic) and routes it accordingly. Five analysis agents then run **in parallel**, each with a narrow remit and its own system prompt: a domain specialist, a general-security agent, a dependency agent, a cross-contract interaction agent, and an economic-security agent. Their outputs are not trusted blindly — a **critic agent** reviews all five reports against the structural ground truth, hunts for contradictions, false positives, and unchecked functions, and can trigger a bounded correction loop. Finally a **synthesis agent** merges everything into one deduplicated report and computes the final score with a transparent penalty model.
 
-The last stage is what makes a ChainGuard report more than a PDF. The finished report is hashed with `keccak256`, and that hash — together with the score and a timestamp — is committed to an **append-only registry contract on Base**. From that point, anyone can independently confirm that a specific report existed at a specific block height, without trusting ChainGuard's servers, database, or operators. The audit becomes a piece of public, verifiable history.
+The last stage is what makes a ChainGuard report more than a PDF. The finished report is hashed with `keccak256`, and that hash — together with the score and a timestamp — is committed to an **append-only registry contract on Base**. From that point, anyone can independently confirm that a specific report existed at a specific block height, without trusting ChainGuard's servers, database, or operators. The analysis becomes a piece of public, verifiable history.
 
 ## Pipeline diagram
 
@@ -55,7 +55,7 @@ flowchart TD
 
 ## The agents
 
-The audit is run as a **seven-agent pipeline** — five analysis agents that run in parallel, a critic, and a synthesizer — with an **orchestrator** agent in front that classifies the contract and routes it. Eight agent roles in total; each runs against the Claude API at temperature 0, so the same contract yields a stable, reproducible analysis.
+Each analysis runs as a **seven-agent pipeline** — five analysis agents that run in parallel, a critic, and a synthesizer — with an **orchestrator** agent in front that classifies the contract and routes it. Eight agent roles in total; each runs against the Claude API at temperature 0, so the same contract yields a stable, reproducible analysis.
 
 **Orchestrator.** Classifies the contract into a domain and a set of architectural patterns (AMM, lending, staking, ERC-721, governance, …), then decides which domain specialist to activate. This is the routing layer — it keeps every downstream agent working on a contract it is actually equipped to reason about.
 
@@ -91,7 +91,7 @@ The analysis agents are grounded with retrieval-augmented generation over a cura
 
 ### On-chain proof decoupled from the application
 
-The trust-minimizing property is structural. The audit report is hashed and the hash is written to an append-only registry contract on Base; the application itself is never the source of truth for "this was audited." The registry is intentionally minimal — it stores hashes, scores, timestamps, and block numbers, not report contents — with a per-contract version cap to bound gas and an approved-auditor allowlist. Anyone can later read the registry directly and confirm a report's existence and timing independently of ChainGuard. Reports also export as a PDF carrying a QR code that points straight to the public verification page.
+The trust-minimizing property is structural. The analysis report is hashed and the hash is written to an append-only registry contract on Base; the application itself is never the source of truth for "this was analyzed." The registry is intentionally minimal — it stores hashes, scores, timestamps, and block numbers, not report contents — with a per-contract version cap to bound gas and an approved-submitter allowlist. Anyone can later read the registry directly and confirm a report's existence and timing independently of ChainGuard. Reports also export as a PDF carrying a QR code that points straight to the public verification page.
 
 ---
 
