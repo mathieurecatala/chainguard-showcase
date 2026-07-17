@@ -1,6 +1,6 @@
 # ChainGuard
 
-> AI-powered Solidity smart contract security auditor — multi-agent analysis with on-chain proof of review.
+> AI-powered security scanner for Solidity smart contracts — multi-agent vulnerability analysis with on-chain proof of review.
 
 **Live demo:** [chainguard-theta.vercel.app](https://chainguard-theta.vercel.app)
 
@@ -57,11 +57,11 @@ Full breakdown of the agents, design decisions, and the on-chain proof mechanism
 **Blockchain**
 - Solidity 0.8.20 contracts (OpenZeppelin), deployed on **Base mainnet**
 - `ethers` v6 for on-chain reads/writes and wallet interaction
-- On-chain audit registry storing report hashes, scores, and timestamps
+- On-chain analysis registry storing report hashes, scores, and timestamps
 
 **Auth & payments**
-- GitHub OAuth sign-in (NextAuth) for identity and free-tier tracking
-- Wallet-based payments in USDC on Base — pay-per-audit and monthly plans
+- GitHub OAuth sign-in (NextAuth) for identity and usage tracking
+- Wallet-based payments in USDC on Base — pay-per-scan and monthly plans
 - Server-side on-chain payment verification before credits are granted
 
 **Reporting**
@@ -69,14 +69,7 @@ Full breakdown of the agents, design decisions, and the on-chain proof mechanism
 
 ## Pricing
 
-- **First 3 audits: free** (GitHub sign-in)
-- After that, pay in **USDC on Base** — no credit card, no off-chain billing:
-  - **Pay-per-use:** 15 USDC per single audit
-  - **Starter:** 49 USDC/month — 10 audits
-  - **Pro:** 149 USDC/month — 50 audits
-  - **Team:** 399 USDC/month — high-volume
-
-No lock-in: pay-per-use never expires into a subscription you didn't choose.
+Payments are wallet-based, in **USDC on Base** — no credit card, no off-chain billing, with both pay-per-scan and monthly plans. The pricing model is still being iterated on; current tiers are shown on the [live site](https://chainguard-theta.vercel.app).
 
 ## Roadmap
 
