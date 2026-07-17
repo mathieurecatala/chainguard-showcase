@@ -90,7 +90,7 @@ Payments are wallet-based, in **USDC on Base** — no credit card, no off-chain 
 
 5th-year MSc Cybersecurity & AI student at EFREI Paris. I build agent-based AI systems and applied them to a problem I find genuinely interesting: the gap between expensive top-tier audits and the absence of accessible quality assurance for smaller protocols. ChainGuard is my attempt to close part of that gap, with AI-augmented analysis and on-chain accountability.
 
-Currently looking for **full-remote opportunities in AI engineering applied to crypto** — open to roles across Europe.
+Currently looking for **full-remote opportunities in AI engineering applied to crypto** — available from **October 2026**, open to roles across Europe.
 
 ## Note on source code
 
