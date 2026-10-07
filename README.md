@@ -49,7 +49,7 @@ Full breakdown of the agents, design decisions, and the on-chain proof mechanism
 - Deployed on Vercel
 
 **AI analysis**
-- Anthropic Claude (Claude Sonnet 4) via the official `@anthropic-ai/sdk`
+- Anthropic Claude (Sonnet) via the official `@anthropic-ai/sdk`
 - Custom multi-agent orchestration (no agent framework — hand-built pipeline)
 - Retrieval-augmented generation over a curated database of documented DeFi exploits
 - `solc` for in-pipeline Solidity compilation and bytecode/opcode inspection
@@ -82,7 +82,7 @@ Full breakdown of the agents, design decisions, and the on-chain proof mechanism
 
 ## Why I built it
 
-5th-year MSc Cybersecurity & AI student at EFREI Paris. I build agent-based AI systems and applied them to a problem I find genuinely interesting: the gap between expensive top-tier audits and the absence of accessible quality assurance for smaller protocols. ChainGuard is my attempt to close part of that gap, with AI-augmented analysis and on-chain accountability.
+MSc in Cybersecurity & AI, EFREI Paris (2026). I build agent-based AI systems and applied them to a problem I find genuinely interesting: the gap between expensive top-tier audits and the absence of accessible quality assurance for smaller protocols. ChainGuard is my attempt to close part of that gap, with AI-augmented analysis and on-chain accountability.
 
 ## Note on source code
 
