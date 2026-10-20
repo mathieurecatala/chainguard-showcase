@@ -1,25 +1,25 @@
 # ChainGuard
 
-> AI-powered security scanner for Solidity smart contracts — multi-agent vulnerability analysis with on-chain proof of review.
+> AI-powered security scanner for Solidity smart contracts: multi-agent vulnerability analysis with on-chain proof of review.
 
-**Live demo:** [chainguard-theta.vercel.app](https://chainguard-theta.vercel.app)
+**In production:** [chainguard-theta.vercel.app](https://chainguard-theta.vercel.app)
 
-![ChainGuard screenshot](screenshots/landing.png)
+![ChainGuard landing page](screenshots/hero.png)
 
 ## The problem
 
-Smart contracts are immutable once deployed — bugs cost millions. Professional audits are expensive and out of reach for early-stage protocols, small teams, or projects iterating fast. Static analyzers like Slither flag the same patterns repeatedly without context. Generic LLM wrappers hallucinate without producing actionable, traceable reports.
+Smart contracts cannot be changed once deployed, so a bug stays in production. Professional audits are expensive and out of reach for early-stage protocols, small teams, or projects iterating fast. Static analyzers like Slither flag the same patterns repeatedly without context.
 
 ## What ChainGuard does
 
-ChainGuard runs a Solidity contract through a seven-agent pipeline of specialized AI agents, each focused on a class of vulnerability (reentrancy, access control, oracle manipulation, arithmetic, cross-contract interaction, economic exploits, etc.). The agents collaborate — including a critic agent that challenges their findings — to produce:
+ChainGuard runs a Solidity contract through seven agents plus an orchestrator. The orchestrator classifies the contract. Five analysis agents then run in parallel (domain specialist, general security, dependencies, cross-contract interactions, economic security). A critic challenges their findings, and a synthesis agent writes the final report. The pipeline produces:
 
 - A **security score** (0–100) capturing overall risk
 - A list of **vulnerabilities prioritized by criticality** (Critical / High / Medium / Low / Economic)
 - For each vulnerability: **why it matters, where it is, how to fix it**, and for high-severity findings a plain-English attack scenario
-- A **cryptographic hash of the report stored on-chain** — a tamper-proof timestamp of the analysis
+- A **cryptographic hash of the report stored on-chain**: a tamper-proof timestamp of the analysis
 
-The on-chain proof is the differentiator: anyone can verify when a codebase was reviewed and what the result was, without trusting ChainGuard's operators.
+Anyone can check on-chain when a contract was analyzed and what score it got, without relying on ChainGuard's own database.
 
 ## How it works
 
@@ -44,13 +44,13 @@ Full breakdown of the agents, design decisions, and the on-chain proof mechanism
 ## Tech stack
 
 **Frontend & app**
-- Next.js 15 (App Router) — React 19, TypeScript
+- Next.js 15 (App Router), React 19, TypeScript
 - Tailwind CSS v4
 - Deployed on Vercel
 
 **AI analysis**
 - Anthropic Claude (Sonnet) via the official `@anthropic-ai/sdk`
-- Custom multi-agent orchestration (no agent framework — hand-built pipeline)
+- Custom multi-agent orchestration (no agent framework, hand-built pipeline)
 - Retrieval-augmented generation over a curated database of documented DeFi exploits
 - `solc` for in-pipeline Solidity compilation and bytecode/opcode inspection
 
@@ -63,33 +63,37 @@ Full breakdown of the agents, design decisions, and the on-chain proof mechanism
 - GitHub OAuth sign-in (NextAuth) for identity and usage tracking
 
 **Reporting**
-- `jsPDF` + `qrcode` — exportable PDF reports with a QR code linking to the on-chain verification page
+- `jsPDF` + `qrcode`: exportable PDF reports with a QR code linking to the on-chain verification page
 
 ## Roadmap
 
 **Shipped**
 - [x] MVP live
-- [x] Seven-agent analysis pipeline with adversarial critic
-- [x] Per-protocol specialization — six domain agents (DeFi, NFT, Gaming, RWA, DAO, Generic)
+- [x] Analysis pipeline with seven agents plus an orchestrator, including an adversarial critic
+- [x] Per-protocol specialization: six domain agents (DeFi, NFT, Gaming, RWA, DAO, Generic)
 - [x] RAG over a curated database of documented real-world DeFi exploits
 - [x] On-chain report hashing on Base
 - [x] Verifiable PDF reports with on-chain QR proof
 
 **Next**
-- [ ] Pre-audit mode — lightweight scan tuned for surfacing medium/low findings before engaging a top-tier auditor
+- [ ] Pre-audit mode: lightweight scan tuned for surfacing medium/low findings before engaging a top-tier auditor
 - [ ] Eval suite against known-vulnerable benchmarks (Damn Vulnerable DeFi, SWC registry) with published detection-rate metrics
 - [ ] Public benchmarks vs. existing static analyzers (Slither, Mythril)
 
-## Why I built it
+## Limitations
 
-MSc in Cybersecurity & AI, EFREI Paris (2026). I build agent-based AI systems and applied them to a problem I find genuinely interesting: the gap between expensive top-tier audits and the absence of accessible quality assurance for smaller protocols. ChainGuard is my attempt to close part of that gap, with AI-augmented analysis and on-chain accountability.
+Detection rate not measured yet. The evaluation against known-vulnerable benchmarks is the next item on the roadmap.
 
-## Note on source code
+## Background
 
-The source code is private. This repository exists as a public showcase of the project's architecture, design decisions, and capabilities.
+MSc in Cybersecurity & AI, EFREI Paris (2026).
+
+## Source code
+
+The source code is private. This repository presents the architecture, the design decisions and the capabilities of the system. Designed and deployed by Mathieu Recatala, developed with Claude Code.
 
 ## Contact
 
 - GitHub: [github.com/mathieurecatala](https://github.com/mathieurecatala)
 - LinkedIn: [linkedin.com/in/mathieu-recatala-0360b5222/](https://www.linkedin.com/in/mathieu-recatala-0360b5222/)
-- Demo: [chainguard-theta.vercel.app](https://chainguard-theta.vercel.app)
+- Site: [chainguard-theta.vercel.app](https://chainguard-theta.vercel.app)
